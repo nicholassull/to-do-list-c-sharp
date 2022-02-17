@@ -24,7 +24,7 @@ _This simple web application allows users input different items that will then b
 * _Navigate to ToDoList.Solution/ToDoList in your terminal._
 * _Run the commands below_
 >dotnet restore
- 
+
 >dotnet build
 
 >dotnet run
