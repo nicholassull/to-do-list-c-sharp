@@ -7,9 +7,10 @@
   </head>
   <body>
     <div class="container m-4">
-      <form action="/items" method="post">
-        <label for="description">Add a new item</label>
-        <input id="description" name="description" type="text">
+      <form action="/categories/@Model.Id/items" method="post">
+        <input id="categoryId" name="categoryId" type="hidden" value="@Model.Id">
+        <label for="itemDescription">Add a new item</label>
+        <input id="itemDescription" name="itemDescription" type="text">
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
