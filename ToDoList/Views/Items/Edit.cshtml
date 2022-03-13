@@ -1,4 +1,4 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
@@ -15,10 +15,10 @@
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
 
-    @Html.LabelFor(model => model.Category)
+    @Html.Label("Select category")
     //Since we saved the list of categories inside ViewBag.CategoryId, we can provide that here as a string name.
     @Html.DropDownList("CategoryId")
 
     <input type="submit" value="Save" />
 }
-<p>@Html.ActionLink("Back to list", "Index")</p> *@
+<p>@Html.ActionLink("Back to list", "Index")</p>
