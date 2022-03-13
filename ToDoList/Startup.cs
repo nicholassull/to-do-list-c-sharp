@@ -33,6 +33,7 @@ namespace ToDoList
     {
       app.UseDeveloperExceptionPage();
       app.UseRouting();
+      app.UseStaticFiles();
 
       app.UseEndpoints(routes =>
       {

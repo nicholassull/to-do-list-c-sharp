@@ -1,0 +1,12 @@
+/*Add the link bellow to _Layout.cshtml to linkthis style sheet to all pages. 
+  <link rel="stylesheet" type="text/css" href="~/css/styles.css" /> */
+
+  div#footer {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    color:#CCC;
+    background:#333;
+    padding:8px;
+}
