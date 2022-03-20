@@ -55,7 +55,8 @@ namespace ToDoList.Controllers
     [HttpPost]
     public ActionResult Edit(Item item, int CategoryId)
     {
-      if (CategoryId != 0)
+      bool duplicate = _db.CategoryItem.Any(join => join.CategoryId == CategoryId && join.ItemId == item.ItemId);
+      if (CategoryId != 0 && !duplicate)
       {
         _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
       }
@@ -63,19 +64,19 @@ namespace ToDoList.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    // public ActionResult Delete (int id)
-    // {
-    //   var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-    //   return View(thisItem);
-    // }
-    // [HttpPost, ActionName("Delete")]
-    // public ActionResult DeleteConfirmed(int id)
-    // {
-    //   var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-    //   _db.Items.Remove(thisItem);
-    //   _db.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
+    public ActionResult Delete (int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      return View(thisItem);
+    }
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      _db.Items.Remove(thisItem);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
     public ActionResult AddCategory(int id)
     {
       var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
@@ -90,6 +91,15 @@ namespace ToDoList.Controllers
         _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
         _db.SaveChanges();
       }
+      return RedirectToAction("Index");
+    }
+    //Deletes a category from an item without deleting the item itself.
+    [HttpPost]
+    public ActionResult DeleteCategory(int joinId)
+    {
+      var joinEntry = _db.CategoryItem.FirstOrDefault(entry => entry.CategoryItemId == joinId);
+      _db.CategoryItem.Remove(joinEntry);
+      _db.SaveChanges();
       return RedirectToAction("Index");
     }
   }

@@ -19,6 +19,13 @@ else
     @foreach(var join in Model.JoinEntities)
     {
       <li>@join.Category.Name</li>
+      //Creates a seperate Delete button for each category. The first arg. passed into the form is route method, the second is the controller. The point of this is to delete the entry in the join table.
+      @using (Html.BeginForm("DeleteCategory", "Items"))
+      {
+        //First arg. is the name of the route parameter being passed, the second is the actual value of that parameter. 
+        @Html.Hidden("joinId", @join.CategoryItemId)
+        <input type="submit" value="Delete"/>
+      }
     }
   </ul>
 }
