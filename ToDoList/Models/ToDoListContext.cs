@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ToDoList.Models
 {
   //This is the reference object for our database
-  public class ToDoListContext : DbContext
+  public class ToDoListContext : IdentityDbContext<ApplicationUser>
   {
     //The DbSets represent the tables within out database
     public DbSet<Item> Items { get; set; }
