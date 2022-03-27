@@ -27,11 +27,30 @@ namespace ToDoList.Controllers
       return View();
     }
     [HttpPost]
-    public async Task<ActionResult> Register (RegisterViewModel model)
+    public async Task<ActionResult> Register(RegisterViewModel model)
     {
       var user = new ApplicationUser { UserName = model.Email };
       //An async method that creates a new user with a passed in user object and password. It returns a result that is either successfull or not.
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index");
+      }
+      else
+      {
+        return View();
+      }
+    }
+    public ActionResult Login()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel model)
+    {
+      //An async method with an obvious name. Takes 4 parameters. If statement is added incase sign in isnt authenticated.
+      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
       if (result.Succeeded)
       {
         return RedirectToAction("Index");
